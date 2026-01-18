@@ -29,6 +29,7 @@ class ActivityQueries
     {
         $query = $this->permissions
             ->restrictEntityRelationQuery(Activity::query(), 'activities', 'loggable_id', 'loggable_type')
+            ->where('type', 'not like', '%\_view')
             ->orderBy('created_at', 'desc')
             ->with(['user'])
             ->skip($count * $page)

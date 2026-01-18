@@ -136,6 +136,7 @@ class AuditLogController extends Controller
 
         fputcsv($output, [
             trans('settings.audit_date'),
+            trans('settings.audit_table_employee_id'),
             trans('settings.audit_user'),
             trans('settings.audit_event'),
             trans('settings.audit_detail'),
@@ -145,12 +146,16 @@ class AuditLogController extends Controller
 
         foreach ($activities as $activity) {
             $subject = $this->getActivitySubject($activity);
+            $employeeId = $activity->user?->employee_id ?? '';
+            $detail = $activity->detail ?? '';
+            $detail = preg_replace('/^\(\d+\)\s*/', '', $detail);
 
             fputcsv($output, [
                 $activity->created_at?->toIso8601String() ?? '',
+                $employeeId !== '' ? "=\"{$employeeId}\"" : '',
                 $activity->user?->name ?? trans('common.unknown'),
-                $activity->type,
-                $activity->detail ?? '',
+                $activity->getText(),
+                $detail,
                 $activity->ip ?? '',
                 $subject,
             ]);

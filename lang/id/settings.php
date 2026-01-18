@@ -172,6 +172,7 @@ return [
     'audit_ip' => 'Alamat IP',
     'audit_subject' => 'Subjek',
     'audit_csv_deleted_item' => '(Item Dihapus)',
+    'audit_table_employee_id' => 'ID Karyawan',
 
     // Role Settings
     'roles' => 'Peran',

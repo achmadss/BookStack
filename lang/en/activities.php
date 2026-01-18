@@ -16,6 +16,7 @@ return [
     'page_restore_notification'   => 'Page successfully restored',
     'page_move'                   => 'moved page',
     'page_move_notification'      => 'Page successfully moved',
+    'page_view'                   => 'viewed page',
 
     // Chapters
     'chapter_create'              => 'created chapter',
@@ -26,6 +27,7 @@ return [
     'chapter_delete_notification' => 'Chapter successfully deleted',
     'chapter_move'                => 'moved chapter',
     'chapter_move_notification' => 'Chapter successfully moved',
+    'chapter_view'                => 'viewed chapter',
 
     // Books
     'book_create'                 => 'created book',
@@ -38,6 +40,7 @@ return [
     'book_delete_notification'    => 'Book successfully deleted',
     'book_sort'                   => 'sorted book',
     'book_sort_notification'      => 'Book successfully re-sorted',
+    'book_view'                   => 'viewed book',
 
     // Bookshelves
     'bookshelf_create'            => 'created shelf',

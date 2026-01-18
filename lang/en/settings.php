@@ -172,6 +172,7 @@ return [
     'audit_ip' => 'IP Address',
     'audit_subject' => 'Subject',
     'audit_deleted_item' => '(Deleted Item)',
+    'audit_table_employee_id' => 'Employee ID',
 
     // Role Settings
     'roles' => 'Roles',

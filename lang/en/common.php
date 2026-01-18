@@ -70,6 +70,7 @@ return [
     'deleted_user' => 'Deleted User',
     'no_activity' => 'No activity to show',
     'no_items' => 'No items available',
+    'you' => 'You',
     'back_to_top' => 'Back to top',
     'skip_to_main_content' => 'Skip to main content',
     'toggle_details' => 'Toggle Details',

@@ -16,6 +16,7 @@ return [
     'page_restore_notification'   => 'Halaman berhasil dipulihkan',
     'page_move'                   => 'halaman dipindahkan',
     'page_move_notification'      => 'Halaman berhasil dipindahkan',
+    'page_view'                   => 'melihat halaman',
 
     // Chapters
     'chapter_create'              => 'membuat bab',
@@ -26,6 +27,7 @@ return [
     'chapter_delete_notification' => 'Bab berhasil dihapus',
     'chapter_move'                => 'bab dipindahkan',
     'chapter_move_notification' => 'Bab berhasil dipindahkan',
+    'chapter_view'                => 'melihat bab',
 
     // Books
     'book_create'                 => 'membuat buku',
@@ -38,6 +40,7 @@ return [
     'book_delete_notification'    => 'Buku berhasil dihapus',
     'book_sort'                   => 'buku yang diurutkan',
     'book_sort_notification'      => 'Buku berhasil diurutkan',
+    'book_view'                   => 'melihat buku',
 
     // Bookshelves
     'bookshelf_create'            => 'membuat rak',
