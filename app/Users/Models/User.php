@@ -29,22 +29,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
-/**
- * @property int        $id
- * @property string     $name
- * @property string     $slug
- * @property string     $email
- * @property string     $password
- * @property Carbon     $created_at
- * @property Carbon     $updated_at
- * @property bool       $email_confirmed
- * @property int        $image_id
- * @property string     $external_auth_id
- * @property string     $system_name
- * @property Collection $roles
- * @property Collection $mfaValues
- * @property ?Image     $avatar
- */
+    /**
+     * @property int        $id
+     * @property string     $name
+     * @property string     $slug
+     * @property string     $email
+     * @property string     $password
+     * @property Carbon     $created_at
+     * @property Carbon     $updated_at
+     * @property bool       $email_confirmed
+     * @property int        $image_id
+     * @property string     $external_auth_id
+     * @property string     $employee_id
+     * @property string     $system_name
+     * @property Collection $roles
+     * @property Collection $mfaValues
+     * @property ?Image     $avatar
+     */
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, Loggable, SluggableInterface
 {
     use HasFactory;
@@ -64,7 +65,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email'];
+    protected $fillable = ['name', 'email', 'employee_id'];
 
     protected $casts = ['last_activity_at' => 'datetime'];
 

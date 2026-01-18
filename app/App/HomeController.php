@@ -28,7 +28,7 @@ class HomeController extends Controller
         QueryRecentlyViewed $recentlyViewed,
         QueryTopFavourites $topFavourites,
     ) {
-        $activity = $activities->latest(10);
+        $activity = $activities->latest(10, 0, user());
         $draftPages = [];
 
         if ($this->isSignedIn()) {

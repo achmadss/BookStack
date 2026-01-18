@@ -90,6 +90,7 @@ class UserController extends Controller
             'password'         => $passwordRequired ? ['required', Password::default()] : null,
             'password-confirm' => $passwordRequired ? ['required', 'same:password'] : null,
             'external_auth_id' => $externalAuth ? ['required'] : null,
+            'employee_id'      => ['nullable', 'string', 'max:50'],
         ];
 
         $validated = $this->validate($request, array_filter($validationRules));
@@ -153,6 +154,7 @@ class UserController extends Controller
             'roles'            => ['array'],
             'roles.*'          => ['integer'],
             'external_auth_id' => ['string'],
+            'employee_id'      => ['nullable', 'string', 'max:50'],
             'profile_image'    => array_merge(['nullable'], $this->getImageValidationRules()),
         ]);
 

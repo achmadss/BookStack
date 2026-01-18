@@ -143,6 +143,7 @@ class BookController extends Controller
         $bookParentShelves = $book->shelves()->scopes('visible')->get();
 
         View::incrementFor($book);
+        Activity::add(ActivityType::BOOK_VIEW, $book);
         if ($request->has('shelf')) {
             $this->shelfContext->setShelfContext(intval($request->get('shelf')));
         }

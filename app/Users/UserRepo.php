@@ -54,7 +54,7 @@ class UserRepo
     /**
      * Create a new basic instance of user with the given pre-validated data.
      *
-     * @param array{name: string, email: string, password: ?string, external_auth_id: ?string, language: ?string, roles: ?array} $data
+     * @param array{name: string, email: string, password: ?string, external_auth_id: ?string, employee_id: ?string, language: ?string, roles: ?array} $data
      */
     public function createWithoutActivity(array $data, bool $emailConfirmed = false): User
     {
@@ -64,6 +64,7 @@ class UserRepo
         $user->password = Hash::make(empty($data['password']) ? Str::random(32) : $data['password']);
         $user->email_confirmed = $emailConfirmed;
         $user->external_auth_id = $data['external_auth_id'] ?? '';
+        $user->employee_id = $data['employee_id'] ?? null;
 
         $this->slugGenerator->regenerateForUser($user);
         $user->save();
@@ -84,7 +85,7 @@ class UserRepo
     /**
      * As per "createWithoutActivity" but records a "create" activity.
      *
-     * @param array{name: string, email: string, password: ?string, external_auth_id: ?string, language: ?string, roles: ?array} $data
+     * @param array{name: string, email: string, password: ?string, external_auth_id: ?string, employee_id: ?string, language: ?string, roles: ?array} $data
      * @throws UserInviteException
      */
     public function create(array $data, bool $sendInvite = false): User
@@ -103,7 +104,7 @@ class UserRepo
     /**
      * Update the given user with the given data, but do not create an activity.
      *
-     * @param array{name: ?string, email: ?string, external_auth_id: ?string, password: ?string, roles: ?array<int>, language: ?string} $data
+     * @param array{name: ?string, email: ?string, external_auth_id: ?string, employee_id: ?string, password: ?string, roles: ?array<int>, language: ?string} $data
      *
      * @throws UserUpdateException
      */
@@ -120,6 +121,10 @@ class UserRepo
 
         if (!empty($data['external_auth_id']) && $manageUsersAllowed) {
             $user->external_auth_id = $data['external_auth_id'];
+        }
+
+        if (!empty($data['employee_id']) && $manageUsersAllowed) {
+            $user->employee_id = $data['employee_id'];
         }
 
         if (isset($data['roles']) && $manageUsersAllowed) {
@@ -142,7 +147,7 @@ class UserRepo
     /**
      * Update the given user with the given data.
      *
-     * @param array{name: ?string, email: ?string, external_auth_id: ?string, password: ?string, roles: ?array<int>, language: ?string} $data
+     * @param array{name: ?string, email: ?string, external_auth_id: ?string, employee_id: ?string, password: ?string, roles: ?array<int>, language: ?string} $data
      *
      * @throws UserUpdateException
      */

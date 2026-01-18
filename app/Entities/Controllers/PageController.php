@@ -2,9 +2,11 @@
 
 namespace BookStack\Entities\Controllers;
 
+use BookStack\Activity\ActivityType;
 use BookStack\Activity\Models\View;
 use BookStack\Activity\Tools\CommentTree;
 use BookStack\Activity\Tools\UserEntityWatchOptions;
+use BookStack\Facades\Activity;
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Queries\EntityQueries;
@@ -156,6 +158,7 @@ class PageController extends Controller
         $nextPreviousLocator = new NextPreviousContentLocator($page, $sidebarTree);
 
         View::incrementFor($page);
+        Activity::add(ActivityType::PAGE_VIEW, $page);
         $this->setPageTitle($page->getShortName());
 
         return view('pages.show', [

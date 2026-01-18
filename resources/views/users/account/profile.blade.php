@@ -29,18 +29,28 @@
                 </div>
 
                 <div>
-                    <div class="flex-container-row gap-l items-center wrap">
-                        <div class="flex">
-                            <label class="setting-list-label" for="email">{{ trans('auth.email') }}</label>
-                            <p class="text-small mb-none">{{ trans('preferences.profile_email_desc') }}</p>
-                        </div>
-                        <div class="flex stretch-inputs">
-                            @include('form.text', ['name' => 'email', 'disabled' => !userCan(\BookStack\Permissions\Permission::UsersManage)])
-                        </div>
+                <div class="flex-container-row gap-l items-center wrap">
+                    <div class="flex">
+                        <label class="setting-list-label" for="email">{{ trans('auth.email') }}</label>
+                        <p class="text-small mb-none">{{ trans('preferences.profile_email_desc') }}</p>
                     </div>
-                    @if(!userCan(\BookStack\Permissions\Permission::UsersManage))
-                        <p class="text-small text-muted">{{ trans('preferences.profile_email_no_permission') }}</p>
-                    @endif
+                    <div class="flex stretch-inputs">
+                        @include('form.text', ['name' => 'email', 'disabled' => !userCan(\BookStack\Permissions\Permission::UsersManage)])
+                    </div>
+                </div>
+                @if(!userCan(\BookStack\Permissions\Permission::UsersManage))
+                    <p class="text-small text-muted">{{ trans('preferences.profile_email_no_permission') }}</p>
+                @endif
+
+                <div class="flex-container-row gap-l items-center wrap">
+                    <div class="flex">
+                        <label class="setting-list-label" for="employee_id">{{ trans('settings.users_employee_id') }}</label>
+                        <p class="text-small mb-none">{{ trans('settings.users_employee_id_desc') }}</p>
+                    </div>
+                    <div class="flex stretch-inputs">
+                        @include('form.text', ['name' => 'employee_id'])
+                    </div>
+                </div>
                 </div>
 
                 <div class="grid half gap-xl">

@@ -34,6 +34,17 @@
             </div>
         </div>
     </div>
+    <div class="mt-m">
+        <div class="form-group collapsible mb-none" component="collapsible" id="employee-id-field">
+            <button refs="collapsible@trigger" type="button" class="collapse-title text-link" aria-expanded="false">
+                <label for="employee-id">{{ trans('settings.users_employee_id') }}</label>
+            </button>
+            <div refs="collapsible@content" class="collapse-content stretch-inputs">
+                <p class="small">{{ trans('settings.users_employee_id_desc') }}</p>
+                @include('form.text', ['name' => 'employee_id'])
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>

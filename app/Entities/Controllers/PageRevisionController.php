@@ -32,6 +32,11 @@ class PageRevisionController extends Controller
      */
     public function index(Request $request, string $bookSlug, string $pageSlug)
     {
+        $user = user();
+        if (!$user->hasSystemRole('admin') && !$user->hasSystemRole('editor')) {
+            $this->showPermissionError();
+        }
+
         $page = $this->pageQueries->findVisibleBySlugsOrFail($bookSlug, $pageSlug);
         $listOptions = SimpleListOptions::fromRequest($request, 'page_revisions', true)->withSortOptions([
             'id' => trans('entities.pages_revisions_sort_number')

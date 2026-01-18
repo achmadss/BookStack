@@ -25,15 +25,20 @@ class ActivityQueries
     /**
      * Gets the latest activity.
      */
-    public function latest(int $count = 20, int $page = 0): array
+    public function latest(int $count = 20, int $page = 0, ?User $user = null): array
     {
-        $activityList = $this->permissions
+        $query = $this->permissions
             ->restrictEntityRelationQuery(Activity::query(), 'activities', 'loggable_id', 'loggable_type')
             ->orderBy('created_at', 'desc')
             ->with(['user'])
             ->skip($count * $page)
-            ->take($count)
-            ->get();
+            ->take($count);
+
+        if ($user && !$user->hasSystemRole('admin') && !$user->hasSystemRole('editor')) {
+            $query->where('user_id', '=', $user->id);
+        }
+
+        $activityList = $query->get();
 
         $this->listLoader->loadIntoRelations($activityList->all(), 'loggable', false);
 
