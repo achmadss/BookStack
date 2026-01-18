@@ -18,14 +18,19 @@
 
             <div class="setting-list">
 
+                <div>
                 <div class="flex-container-row gap-l items-center wrap">
                     <div class="flex">
                         <label class="setting-list-label" for="name">{{ trans('auth.name') }}</label>
                         <p class="text-small mb-none">{{ trans('preferences.profile_name_desc') }}</p>
                     </div>
                     <div class="flex stretch-inputs">
-                        @include('form.text', ['name' => 'name'])
+                        @include('form.text', ['name' => 'name', 'disabled' => !userCan(\BookStack\Permissions\Permission::UsersManage)])
                     </div>
+                </div>
+                @if(!userCan(\BookStack\Permissions\Permission::UsersManage))
+                    <p class="text-small text-muted mt-s">{{ trans('preferences.profile_name_no_permission') }}</p>
+                @endif
                 </div>
 
                 <div>
@@ -38,19 +43,20 @@
                         @include('form.text', ['name' => 'email', 'disabled' => !userCan(\BookStack\Permissions\Permission::UsersManage)])
                     </div>
                 </div>
-                @if(!userCan(\BookStack\Permissions\Permission::UsersManage))
-                    <p class="text-small text-muted">{{ trans('preferences.profile_email_no_permission') }}</p>
-                @endif
 
                 @if(user()->employee_id)
                 <div class="flex-container-row gap-l items-center wrap">
                     <div class="flex">
                         <label class="setting-list-label">{{ trans('settings.users_employee_id') }}</label>
+                        <p class="text-small mb-none">{{ trans('settings.users_employee_id_desc') }}</p>
                     </div>
                     <div class="flex stretch-inputs">
                         <input type="text" value="{{ user()->employee_id }}" disabled class="form-input">
                     </div>
                 </div>
+                @endif
+                @if(!userCan(\BookStack\Permissions\Permission::UsersManage))
+                    <p class="text-small text-muted mt-s">{{ trans('preferences.profile_email_no_permission') }}</p>
                 @endif
                 </div>
 

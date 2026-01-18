@@ -110,7 +110,7 @@ class UserRepo
      */
     public function updateWithoutActivity(User $user, array $data, bool $manageUsersAllowed): User
     {
-        if (!empty($data['name'])) {
+        if (!empty($data['name']) && $manageUsersAllowed) {
             $user->name = $data['name'];
             $this->slugGenerator->regenerateForUser($user);
         }
