@@ -1,3 +1,6 @@
 * text=auto
 *.css linguist-vendored
 *.less linguist-vendored
+
+# Ensure shell scripts always use LF line endings
+*.sh text eol=lf

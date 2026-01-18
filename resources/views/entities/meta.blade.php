@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    @if ($entity->isA('page'))
+    @if ($entity->isA('page') && userCan(\BookStack\Permissions\Permission::PageUpdate, $entity))
         <a href="{{ $entity->getUrl('/revisions') }}" class="entity-meta-item">
             @icon('history'){{ trans('entities.meta_revision', ['revisionCount' => $entity->revision_count]) }}
         </a>
