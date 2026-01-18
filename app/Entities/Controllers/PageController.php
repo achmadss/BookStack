@@ -172,6 +172,7 @@ class PageController extends Controller
             'next'            => $nextPreviousLocator->getNext(),
             'previous'        => $nextPreviousLocator->getPrevious(),
             'referenceCount'  => $this->referenceFetcher->getReferenceCountToEntity($page),
+            'isProtected'     => $this->checkContentProtection(),
         ]);
     }
 

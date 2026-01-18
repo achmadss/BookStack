@@ -108,6 +108,7 @@ class ChapterController extends Controller
             'next'           => $nextPreviousLocator->getNext(),
             'previous'       => $nextPreviousLocator->getPrevious(),
             'referenceCount' => $this->referenceFetcher->getReferenceCountToEntity($chapter),
+            'isProtected'    => $this->checkContentProtection(),
         ]);
     }
 

@@ -73,6 +73,29 @@
     @endif
     @stack('body-end')
 
+    @if($isProtected ?? false)
+        @php $nonce = $cspNonce ?? '' @endphp
+        <script nonce="{{ $nonce }}">
+        (function() {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.protected-content').forEach(function(el) {
+                    el.addEventListener('contextmenu', function(e) {
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if ((e.ctrlKey || e.metaKey) && [67, 85, 83].indexOf(e.keyCode) !== -1) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            });
+        })();
+        </script>
+    @endif
+
     @include('layouts.parts.base-body-end')
 </body>
 </html>

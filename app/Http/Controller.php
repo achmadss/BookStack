@@ -158,6 +158,29 @@ abstract class Controller extends BaseController
     }
 
     /**
+     * Check if content should be protected from copying based on user permissions.
+     * Users without create/update/delete permissions on any entity will have protected content.
+     */
+    protected function checkContentProtection(): bool
+    {
+        $user = user();
+        if (!$user) {
+            return true;
+        }
+
+        if ($user->hasSystemRole('admin') || $user->hasSystemRole('editor')) {
+            return false;
+        }
+
+        $permissions = app(\BookStack\Permissions\PermissionApplicator::class);
+        $hasCreate = $permissions->checkUserHasEntityPermissionOnAny('create');
+        $hasUpdate = $permissions->checkUserHasEntityPermissionOnAny('update');
+        $hasDelete = $permissions->checkUserHasEntityPermissionOnAny('delete');
+
+        return !($hasCreate || $hasUpdate || $hasDelete);
+    }
+
+    /**
      * Get the validation rules for image files.
      */
     protected function getImageValidationRules(): array

@@ -158,6 +158,7 @@ class BookController extends Controller
             'watchOptions'      => new UserEntityWatchOptions(user(), $book),
             'activity'          => $activities->entityActivity($book, 20, 1),
             'referenceCount'    => $this->referenceFetcher->getReferenceCountToEntity($book),
+            'isProtected'       => $this->checkContentProtection(),
         ]);
     }
 

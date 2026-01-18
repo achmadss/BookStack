@@ -236,3 +236,15 @@ a[data-mention-user-id] {
     display: block;
   }
 }
+
+/**
+ * Content Protection
+ * Prevent text selection on protected content for users without modify permissions
+ */
+.protected-content,
+.protected-content * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
