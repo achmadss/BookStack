@@ -53,6 +53,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     use CanResetPassword;
     use Notifiable;
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::saving(function (User $user) {
+            if ($user->isGuest()) {
+                return;
+            }
+
+            if (!is_null($user->employee_id) && str_contains($user->employee_id, '@')) {
+                throw new \InvalidArgumentException('Employee ID cannot contain @ symbol');
+            }
+        });
+    }
+
     /**
      * The database table used by the model.
      *

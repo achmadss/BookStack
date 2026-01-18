@@ -69,9 +69,19 @@
             <hr class="mt-m mb-s">
 
             <div class="flex-container-row justify-space-between items-center wrap">
-                <div class="flex-2 min-width-xl">{{ $activities->links() }}</div>
                 <div class="flex-none min-width-m py-m">
-                    @include('common.sort', array_merge($listOptions->getSortControlData(), ['useQuery' => true]))
+                    <a href="{{ url('/settings/audit/export/csv') }}" class="button outline">
+                        @icon('download')
+                        {{ trans('settings.audit_export_csv') }}
+                    </a>
+                </div>
+                <div class="flex-container-row items-center wrap gap-m">
+                    <div class="py-m">
+                        {{ $activities->links() }}
+                    </div>
+                    <div class="flex-none min-width-m py-m">
+                        @include('common.sort', array_merge($listOptions->getSortControlData(), ['useQuery' => true]))
+                    </div>
                 </div>
             </div>
 

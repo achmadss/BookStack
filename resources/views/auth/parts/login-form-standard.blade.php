@@ -3,8 +3,8 @@
 
     <div class="stretch-inputs">
         <div class="form-group">
-            <label for="email">{{ trans('auth.email') }}</label>
-            @include('form.text', ['name' => 'email', 'autofocus' => true])
+            <label for="username">{{ trans('auth.username_or_employee_id') }}</label>
+            @include('form.text', ['name' => 'username', 'autofocus' => true])
         </div>
 
         <div class="form-group">

@@ -103,7 +103,7 @@ class LoginController extends Controller
      */
     protected function username(): string
     {
-        return config('auth.method') === 'standard' ? 'email' : 'username';
+        return 'username';
     }
 
     /**
@@ -111,7 +111,7 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request): array
     {
-        return $request->only('username', 'email', 'password');
+        return $request->only('username', 'password');
     }
 
     /**
@@ -149,7 +149,7 @@ class LoginController extends Controller
         $authMethod = config('auth.method');
 
         if ($authMethod === 'standard') {
-            $rules['email'] = ['required', 'email'];
+            $rules['username'] = ['required', 'string'];
         }
 
         if ($authMethod === 'ldap') {

@@ -242,6 +242,8 @@ Route::middleware('auth')->group(function () {
 
     // Audit Log
     Route::get('/settings/audit', [ActivityControllers\AuditLogController::class, 'index']);
+    Route::get('/settings/audit/export/csv', [ActivityControllers\AuditLogController::class, 'exportCsv'])
+        ->name('settings.audit.export.csv');
 
     // Users
     Route::get('/settings/users', [UserControllers\UserController::class, 'index']);

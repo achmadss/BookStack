@@ -19,6 +19,7 @@ return [
     'name' => 'Name',
     'username' => 'Username',
     'email' => 'Email',
+    'username_or_employee_id' => 'Email or Employee ID',
     'password' => 'Password',
     'password_confirm' => 'Confirm Password',
     'password_hint' => 'Must be at least 8 characters',

@@ -7,7 +7,9 @@ env
 if [[ -n "$1" ]]; then
     exec "$@"
 else
-    composer install
+    if [ ! -d "/app/vendor" ]; then
+        composer install --no-interaction
+    fi
     wait-for-it db:3306 -t 45
     php artisan migrate --database=mysql --force
     chown -R www-data storage public/uploads bootstrap/cache

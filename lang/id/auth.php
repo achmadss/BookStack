@@ -19,6 +19,7 @@ return [
     'name' => 'Nama',
     'username' => 'Nama Pengguna',
     'email' => 'Email',
+    'username_or_employee_id' => 'Email atau Nomor ID Karyawan',
     'password' => 'Kata Sandi',
     'password_confirm' => 'Konfirmasi Kata Sandi',
     'password_hint' => 'Harus minimal 8 karakter',

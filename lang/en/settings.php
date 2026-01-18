@@ -164,6 +164,14 @@ return [
     'audit_table_date' => 'Activity Date',
     'audit_date_from' => 'Date Range From',
     'audit_date_to' => 'Date Range To',
+    'audit_export_csv' => 'Export to CSV',
+    'audit_date' => 'Date',
+    'audit_user' => 'User',
+    'audit_event' => 'Event',
+    'audit_detail' => 'Detail',
+    'audit_ip' => 'IP Address',
+    'audit_subject' => 'Subject',
+    'audit_deleted_item' => '(Deleted Item)',
 
     // Role Settings
     'roles' => 'Roles',
@@ -230,7 +238,7 @@ return [
     'users_external_auth_id' => 'External Authentication ID',
     'users_external_auth_id_desc' => 'When an external authentication system is in use (such as SAML2, OIDC or LDAP) this is the ID which links this BookStack user to the authentication system account. You can ignore this field if using the default email-based authentication.',
     'users_employee_id' => 'Employee ID Number',
-    'users_employee_id_desc' => 'Enter the employee identification number for this user.',
+    'users_employee_id_desc' => 'Enter the employee identification number for this user. Cannot contain @ symbol.',
     'users_password_warning' => 'Only fill the below if you would like to change the password for this user.',
     'users_system_public' => 'This user represents any guest users that visit your instance. It cannot be used to log in but is assigned automatically.',
     'users_delete' => 'Delete User',

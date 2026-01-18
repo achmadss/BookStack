@@ -164,6 +164,14 @@ return [
     'audit_table_date' => 'Tanggal Kegiatan',
     'audit_date_from' => 'Rentang Tanggal Dari',
     'audit_date_to' => 'Rentang Tanggal Sampai',
+    'audit_export_csv' => 'Ekspor CSV',
+    'audit_date' => 'Tanggal',
+    'audit_user' => 'Pengguna',
+    'audit_event' => 'Peristiwa',
+    'audit_detail' => 'Detail',
+    'audit_ip' => 'Alamat IP',
+    'audit_subject' => 'Subjek',
+    'audit_csv_deleted_item' => '(Item Dihapus)',
 
     // Role Settings
     'roles' => 'Peran',

@@ -42,15 +42,16 @@
                     <p class="text-small text-muted">{{ trans('preferences.profile_email_no_permission') }}</p>
                 @endif
 
+                @if(user()->employee_id)
                 <div class="flex-container-row gap-l items-center wrap">
                     <div class="flex">
-                        <label class="setting-list-label" for="employee_id">{{ trans('settings.users_employee_id') }}</label>
-                        <p class="text-small mb-none">{{ trans('settings.users_employee_id_desc') }}</p>
+                        <label class="setting-list-label">{{ trans('settings.users_employee_id') }}</label>
                     </div>
                     <div class="flex stretch-inputs">
-                        @include('form.text', ['name' => 'employee_id'])
+                        <input type="text" value="{{ user()->employee_id }}" disabled class="form-input">
                     </div>
                 </div>
+                @endif
                 </div>
 
                 <div class="grid half gap-xl">

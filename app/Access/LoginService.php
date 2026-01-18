@@ -13,6 +13,7 @@ use BookStack\Permissions\Permission;
 use BookStack\Theming\ThemeEvents;
 use BookStack\Users\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class LoginService
 {
@@ -23,6 +24,16 @@ class LoginService
         protected EmailConfirmationService $emailConfirmationService,
         protected SocialDriverManager $socialDriverManager,
     ) {
+    }
+
+    public function findUserByUsername(string $username): ?User
+    {
+        $user = User::query()->where('email', '=', $username)->first();
+        if ($user) {
+            return $user;
+        }
+
+        return User::query()->where('employee_id', '=', $username)->first();
     }
 
     /**
@@ -162,20 +173,35 @@ class LoginService
             return false;
         }
 
-        $result = auth()->attempt($credentials, $remember);
-        if ($result) {
-            $user = auth()->user();
-            auth()->logout();
-            try {
-                $this->login($user, $method, $remember);
-            } catch (LoginAttemptInvalidUserException $e) {
-                // Catch and return false for non-login accounts
-                // so it looks like a normal invalid login.
-                return false;
+        $username = $credentials['username'] ?? null;
+        $password = $credentials['password'] ?? null;
+
+        if (!$username || !$password) {
+            return false;
+        }
+
+        $user = $this->findUserByUsername($username);
+        if (!$user) {
+            return false;
+        }
+
+        if (!Hash::check($password, $user->getAuthPassword())) {
+            return false;
+        }
+
+        $this->clearLastLoginAttempted();
+        auth()->login($user, $remember);
+        Activity::add(ActivityType::AUTH_LOGIN, "{$method}; {$user->logDescriptor()}");
+        Theme::dispatch(ThemeEvents::AUTH_LOGIN, $method, $user);
+
+        if ($user->can(Permission::UsersManage) && $user->can(Permission::UserRolesManage)) {
+            $guards = ['standard', 'ldap', 'saml2', 'oidc'];
+            foreach ($guards as $guard) {
+                auth($guard)->login($user);
             }
         }
 
-        return $result;
+        return true;
     }
 
     /**
@@ -183,8 +209,9 @@ class LoginService
      */
     protected function areCredentialsForGuest(array $credentials): bool
     {
-        if (isset($credentials['email'])) {
-            return User::query()->where('email', '=', $credentials['email'])
+        $identifier = $credentials['username'] ?? $credentials['email'] ?? null;
+        if ($identifier) {
+            return User::query()->where('email', '=', $identifier)
                 ->where('system_name', '=', 'public')
                 ->exists();
         }
