@@ -1,29 +1,28 @@
 <div class="setting-list">
 
-    <div class="grid half">
-        <div>
-            <label class="setting-list-label">{{ trans('settings.role_details') }}</label>
-        </div>
-        <div>
-            <div class="form-group">
+    <div class="pt-m">
+        <label class="setting-list-label">{{ trans('settings.role_details') }}</label>
+        <p class="small">{{ trans('settings.role_details_desc') }}</p>
+        <div class="grid half mt-m gap-xl">
+            <div>
                 <label for="display_name">{{ trans('settings.role_name') }}</label>
                 @include('form.text', ['name' => 'display_name', 'model' => $role])
             </div>
-            <div class="form-group">
+            <div>
                 <label for="description">{{ trans('settings.role_desc') }}</label>
                 @include('form.text', ['name' => 'description', 'model' => $role])
             </div>
-            <div class="form-group">
-                @include('form.checkbox', ['name' => 'mfa_enforced', 'label' => trans('settings.role_mfa_enforced'), 'model' => $role ])
-            </div>
-
-            @if(in_array(config('auth.method'), ['ldap', 'saml2', 'oidc']))
-                <div class="form-group">
-                    <label for="name">{{ trans('settings.role_external_auth_id') }}</label>
-                    @include('form.text', ['name' => 'external_auth_id', 'model' => $role])
-                </div>
-            @endif
         </div>
+        <div class="mt-m">
+            @include('form.checkbox', ['name' => 'mfa_enforced', 'label' => trans('settings.role_mfa_enforced'), 'model' => $role ])
+        </div>
+
+        @if(in_array(config('auth.method'), ['ldap', 'saml2', 'oidc']))
+            <div class="mt-m">
+                <label for="name">{{ trans('settings.role_external_auth_id') }}</label>
+                @include('form.text', ['name' => 'external_auth_id', 'model' => $role])
+            </div>
+        @endif
     </div>
 
     <div component="permissions-table">

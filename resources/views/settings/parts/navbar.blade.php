@@ -14,6 +14,9 @@
         <a href="{{ url('/settings/roles') }}" @if($selected == 'roles') class="active" @endif>@icon('lock-open'){{ trans('settings.roles') }}</a>
     @endif
     @if(userCan(\BookStack\Permissions\Permission::SettingsManage))
+        <a href="{{ url('/settings/user-groups') }}" @if($selected == 'user-groups') class="active" @endif>@icon('users'){{ trans('settings.user_groups') }}</a>
+    @endif
+    @if(userCan(\BookStack\Permissions\Permission::SettingsManage))
         <a href="{{ url('/settings/webhooks') }}" @if($selected == 'webhooks') class="active" @endif>@icon('webhooks'){{ trans('settings.webhooks') }}</a>
     @endif
 </nav>

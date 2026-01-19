@@ -27,21 +27,25 @@
 
         <div class="card content-wrap auto-height">
             <h2 class="list-heading">{{ trans('settings.role_users') }}</h2>
+            <p class="text-small">{{ trans('settings.role_users_desc') }}</p>
             @if(count($role->users ?? []) > 0)
-                <div class="grid third">
+                <div class="item-list">
                     @foreach($role->users as $user)
-                        <div class="user-list-item">
-                            <div>
-                                <img class="avatar small" src="{{ $user->getAvatar(40) }}" alt="{{ $user->name }}">
-                            </div>
-                            <div>
-                                @if(userCan(\BookStack\Permissions\Permission::UsersManage) || user()->id == $user->id)
-                                    <a href="{{ url("/settings/users/{$user->id}") }}">
-                                        @endif
+                        <div class="flex-container-row item-list-row items-center wrap py-xs">
+                            <div class="px-m py-xs flex-container-row items-center gap-m min-width-m">
+                                <img class="avatar med" width="40" height="40" src="{{ $user->getAvatar(40) }}" alt="{{ $user->name }}">
+                                <div>
+                                    @if(userCan(\BookStack\Permissions\Permission::UsersManage) || user()->id == $user->id)
+                                        <a href="{{ url("/settings/users/{$user->id}") }}">{{ $user->name }}</a>
+                                    @else
                                         {{ $user->name }}
-                                        @if(userCan(\BookStack\Permissions\Permission::UsersManage) || user()->id == $user->id)
-                                    </a>
-                                @endif
+                                    @endif
+                                    <br>
+                                    <span class="text-muted">{{ $user->email }}</span>
+                                    @if($user->mfa_values_count > 0)
+                                        <span title="{{ trans('settings.users_mfa') }}" class="text-pos">@icon('lock')</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     @endforeach
