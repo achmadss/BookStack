@@ -140,6 +140,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Get all user groups that this user belongs to.
+     */
+    public function userGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(\BookStack\UserGroups\Models\UserGroup::class, 'user_group_user')
+            ->withPivot('sort_order', 'created_at')
+            ->orderBy('user_group_user.sort_order');
+    }
+
+    /**
      * Check if the user has a role.
      */
     public function hasRole($roleId): bool

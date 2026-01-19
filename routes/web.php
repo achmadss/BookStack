@@ -291,6 +291,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings/roles/{id}', [UserControllers\RoleController::class, 'edit']);
     Route::put('/settings/roles/{id}', [UserControllers\RoleController::class, 'update']);
 
+    // User Groups
+    Route::get('/settings/user-groups', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'index']);
+    Route::get('/settings/user-groups/create', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'create']);
+    Route::post('/settings/user-groups', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'store']);
+    Route::get('/settings/user-groups/delete/{id}', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'showDelete']);
+    Route::delete('/settings/user-groups/delete/{id}', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'destroy']);
+    Route::get('/settings/user-groups/{id}', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'edit']);
+    Route::put('/settings/user-groups/{id}', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'update']);
+    Route::post('/settings/user-groups/{id}/users', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'addUser']);
+    Route::delete('/settings/user-groups/{id}/users/{userId?}', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'removeUser']);
+    Route::put('/settings/user-groups/{id}/users/order', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'updateUserOrder']);
+    Route::put('/settings/user-groups/order', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'updateGroupOrder']);
+    Route::post('/settings/user-groups/{id}/content', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'addContent']);
+    Route::delete('/settings/user-groups/{id}/content', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'removeContent']);
+    Route::put('/settings/user-groups/{id}/membership', [\BookStack\UserGroups\Controllers\UserGroupController::class, 'updateMembership']);
+
     // Webhooks
     Route::get('/settings/webhooks', [ActivityControllers\WebhookController::class, 'index']);
     Route::get('/settings/webhooks/create', [ActivityControllers\WebhookController::class, 'create']);

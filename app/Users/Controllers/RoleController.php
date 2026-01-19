@@ -95,6 +95,9 @@ class RoleController extends Controller
     {
         $this->checkPermission(Permission::UserRolesManage);
         $role = $this->permissionsRepo->getRoleById($id);
+        $role->load(['users' => function ($query) {
+            $query->withCount('mfaValues');
+        }]);
 
         $this->setPageTitle(trans('settings.role_edit'));
 

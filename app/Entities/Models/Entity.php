@@ -149,7 +149,32 @@ abstract class Entity extends Model implements
      */
     public function scopeVisible(Builder $query): Builder
     {
-        return app()->make(PermissionApplicator::class)->restrictEntityQuery($query);
+        $permissionApplicator = app()->make(PermissionApplicator::class);
+        $userGroupApplicator = app()->make(\BookStack\UserGroups\UserGroupApplicator::class);
+        
+        // Apply role-based permissions
+        $query = $permissionApplicator->restrictEntityQuery($query);
+        
+        // If user group restrictions are enabled, apply them as additional filter
+        // This creates an AND condition: user must have BOTH role permission AND group access
+        if ($userGroupApplicator->isEnabled()) {
+            $user = user();
+            if ($user && !$user->hasSystemRole('admin')) {
+                $model = $query->getModel();
+                $entityType = $model->getMorphClass();
+                
+                // Additional restriction: entity must be accessible via user groups
+                $query->whereIn('id', function ($subQuery) use ($user, $entityType) {
+                    $subQuery->select('entity_id')
+                        ->from('user_group_joint_permissions')
+                        ->where('user_id', $user->id)
+                        ->where('entity_type', $entityType)
+                        ->where('has_access', true);
+                });
+            }
+        }
+        
+        return $query;
     }
 
     /**
@@ -275,6 +300,20 @@ abstract class Entity extends Model implements
     public function jointPermissions(): MorphMany
     {
         return $this->morphMany(JointPermission::class, 'entity');
+    }
+
+    /**
+     * Get all user groups that have access to this entity.
+     */
+    public function userGroups(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphToMany(
+            \BookStack\UserGroups\Models\UserGroup::class,
+            'entity',
+            'user_group_content',
+            'entity_id',
+            'user_group_id'
+        );
     }
 
     /**

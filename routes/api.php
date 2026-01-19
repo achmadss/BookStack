@@ -105,6 +105,12 @@ Route::get('roles/{id}', [RoleApiController::class, 'read']);
 Route::put('roles/{id}', [RoleApiController::class, 'update']);
 Route::delete('roles/{id}', [RoleApiController::class, 'delete']);
 
+Route::get('user-groups', [\BookStack\UserGroups\Controllers\UserGroupApiController::class, 'index']);
+Route::post('user-groups', [\BookStack\UserGroups\Controllers\UserGroupApiController::class, 'store']);
+Route::get('user-groups/{id}', [\BookStack\UserGroups\Controllers\UserGroupApiController::class, 'show']);
+Route::put('user-groups/{id}', [\BookStack\UserGroups\Controllers\UserGroupApiController::class, 'update']);
+Route::delete('user-groups/{id}', [\BookStack\UserGroups\Controllers\UserGroupApiController::class, 'destroy']);
+
 Route::get('search', [SearchApiController::class, 'all']);
 
 Route::get('system', [SystemApiController::class, 'read']);
