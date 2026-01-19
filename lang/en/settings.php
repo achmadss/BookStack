@@ -306,8 +306,6 @@ return [
     'user_group_details_desc' => 'Set a name and description for this group. Group members will receive view-only access to assigned content.',
     'user_group_name' => 'Group Name',
     'user_group_desc' => 'Group Description (Optional)',
-    'user_group_color' => 'Group Color',
-    'user_group_color_desc' => 'Optional hex color code for the group badge (e.g., #3498db). Leave empty for no badge color.',
     'user_group_save' => 'Save User Group',
     'user_group_members' => 'Group Members',
     'user_group_members_desc' => 'Select users to add to this group. Members will receive view-only access to all content assigned to the group.',
